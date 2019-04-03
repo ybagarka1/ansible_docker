@@ -1,0 +1,27 @@
+---
+- name: to install tomcat inside docker container
+  hosts: "{{ hosts }}"
+  gather_facts: true
+  sudo: yes
+  tasks:
+    - name: to install tomcat inside docker container
+      apt: 
+        name: python3-pip 
+        state: present
+
+    - name: install docker-py package
+      pip:
+        name: docker-py
+        executable: pip3
+
+    - name: Build Image
+      docker_container:
+        name: tomcat-1
+        image: tomcat
+        state: started
+
+    - name: Run Container
+      docker_container:
+        name: tomcat-2
+        image: tomcat
+        state: started
